@@ -5,6 +5,10 @@ from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.contrib.auth.hashers import *
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 import csv
 
 def index(request):
@@ -77,13 +81,14 @@ def logout_user(request):
 
 def parser_of_csv(request, table_id):
     context = dict()
-    filename = '/home/nippon/Downloads/Test-data.csv'
+    #filename = '/home/nippon/Downloads/Test-data.csv'
+    filename = settings.MEDIA_ROOT + '\Test-data-1.csv'
     a = list()
-    #with open(filename, newline='', encoding='cp1251') as file_csv:
-    with open(filename) as file_csv:
+    with open(filename, newline='', encoding='utf-8') as file_csv:
+    #with open(filename) as file_csv:
         file = csv.reader(file_csv)
         for row in file:
-            a.append(row)
-        print(file)
-    context['csvs'] = a
+            a.append(row[0].split(';'))
+        print(a)
+    context['csv'] = a
     return render(request, 'table.html', context)

@@ -1,0 +1,23 @@
+header, footer {
+    text-align: center;
+}
+img, video, canvas {
+    width: 90%;
+    margin: 5%;
+}
+input, button {
+    margin: 0.5em
+}
+body {
+    color: #fff;
+    background-color: #000;
+}
+td {
+    text-align: center;
+}
+@media screen and (min-width: 769px) {
+    article {
+        width: 80%;
+        margin: 0 10%;
+    }
+}
