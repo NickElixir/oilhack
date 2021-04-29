@@ -82,7 +82,7 @@ def logout_user(request):
 def parser_of_csv(request, table_id):
     context = dict()
     #filename = '/home/nippon/Downloads/Test-data.csv'
-    filename = settings.MEDIA_ROOT + '\Test-data-1.csv'
+    filename = settings.MEDIA_ROOT + '/'  + str(table_id) + '.csv'
     a = list()
     with open(filename, newline='', encoding='utf-8') as file_csv:
     #with open(filename) as file_csv:
