@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="form-title">
+            <hr>
+            <h1>Регистрация</h1>
+            <hr>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Логин:</label>
+                <input type="text" class="form-control" placeholder="Login" name="username">
+                <!-- {{form.username}}-->
+            </div>
+            <div class="form-group">
+                <label>Имя:</label>
+                <input type="text" class="form-control" placeholder="First name" name="first_name">
+                <!-- {{form.first_name}}-->
+            </div>
+            <div class="form-group">
+                <label>Фамилия:</label>
+                <input type="text" class="form-control" placeholder="Second name" name="last_name">
+                <!-- {{form.last_name}}-->
+            </div>
+            <div class="form-group">
+                <label>Пароль:</label>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+                <!-- {{form.password}}-->
+            </div>
+            <div class="form-group">
+                <label>Подтверждение пароля:</label>
+                <input type="password" class="form-control" placeholder="Password" name="password2">
+                <!-- {{form.password2}}-->
+            </div>
+
+
+            <input type="submit" value="Зарегистрироваться" class="btn-primary btn btn-form">
+        </form>
+
+
+        <p>{{message}}</p>
+        {% if error %}
+        <p>error</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
