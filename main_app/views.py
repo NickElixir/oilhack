@@ -44,7 +44,6 @@ def login_user(request):
     """
         Login page rendering function
         Lets users to login on the website
-
         :param request: request object
         :return: request answer object, contains *HTML* file
         :rtype: :class: `django.http.HttpResponse`
@@ -60,10 +59,8 @@ def login_user(request):
                 return HttpResponseRedirect('/')
 
             context['message'] = 'Не получилось войти:('
-
     else:
         form = LoginForm()
-
     context['form'] = form
     return render(request, 'login.html', context)
 
@@ -78,12 +75,15 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
 
-def parser_of_csv(request):
+def parser_of_csv(request, table_id):
     context = dict()
     filename = '/home/nippon/Downloads/Test-data.csv'
-    with open(filename, newline='', encoding='cp1251') as file_csv:
-        file = csv.DictReader(file_csv, delimiter=',')
-        a = list()
-        a = [i for i in file]
+    a = list()
+    #with open(filename, newline='', encoding='cp1251') as file_csv:
+    with open(filename) as file_csv:
+        file = csv.reader(file_csv)
+        for row in file:
+            a.append(row)
+        print(file)
     context['csvs'] = a
     return render(request, 'table.html', context)
