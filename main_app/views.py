@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpRequest
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.contrib.auth.hashers import *
@@ -77,8 +77,3 @@ def logout_user(request):
 
     logout(request)
     return HttpResponseRedirect('/')
-
-def handler404(request, exception, template_name="404.html"):
-    response = render_to_response("404.html")
-    response.status_code = 404
-    return response
