@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% block table %}
+    <table> 
+      <tbody> 
+        {% for i in csvs %}
+          <tr>
+            {% for j in i %}
+            <td> {{ j }} </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  {% endblock %} 
+{% endblock %}

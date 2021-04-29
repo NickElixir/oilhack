@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.contrib.auth.hashers import *
-
+import csv
 
 def index(request):
     context = {}
@@ -77,3 +77,13 @@ def logout_user(request):
 
     logout(request)
     return HttpResponseRedirect('/')
+
+def parser_of_csv(request):
+    context = dict()
+    filename = '/home/nippon/Downloads/Test-data.csv'
+    with open(filename, newline='', encoding='cp1251') as file_csv:
+        file = csv.DictReader(file_csv, delimiter=',')
+        a = list()
+        a = [i for i in file]
+    context['csvs'] = a
+    return render(request, 'table.html', context)

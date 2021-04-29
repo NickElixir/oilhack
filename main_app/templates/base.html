@@ -1,0 +1,38 @@
+<!-- templates/base.html -->
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title></title>
+        {% endif %}
+    </head>
+    <body>
+        <header>
+            {% if title %}
+            <h1><a href="/">{{ title }}</a></h1>
+            {% endif %}
+            {% if author %}
+            <h4>Author: {{ author.username }}</h4>
+            {% endif %}
+            {% if menu %}
+            <ul class="menu">
+                {% for anchor in menu %}
+                <li><a href="{{ anchor.link }}">{{ anchor.label }}</a></li>
+                {% endfor %}
+            </ul>    
+            {% endif %}    
+            </ul>
+        </header>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer>
+            <p>Web Demo Footer</p>
+        </footer>
+    </body>
+</html>
