@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import *
 from .forms import *
 from django.contrib.auth.hashers import *
+import re
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -93,3 +94,21 @@ def parser_of_csv(request, table_id):
     context['csv'] = a
     context['fileurl'] = settings.MEDIA_ROOT + '/' + str(table_id) + '.csv'
     return render(request, 'table.html', context)
+
+@login_required(login_url='/login')
+def search_results(request):
+    context = {}
+    context['user_name'] = request.user
+    if 'search-btn' and 'search-line' in request.GET:
+        s_line = request.GET['search-line']
+        try:
+            companies = []
+            for company in Company.objects.all():
+                if re.search(r'{}'.format(s_line), company.name):
+                    companies.append(company)
+                    print(company)
+        except:
+            companies = Company.objects.filter(name__startswith=s_line)
+        context['search_value'] = s_line
+        context['companies_on_search'] = companies
+    return render(request, 'search_results.html', context)
