@@ -89,6 +89,7 @@ def parser_of_csv(request, table_id):
         file = csv.reader(file_csv)
         for row in file:
             a.append(row[0].split(';'))
-        print(a)
+        
     context['csv'] = a
+    context['fileurl'] = settings.MEDIA_ROOT + '/' + str(table_id) + '.csv'
     return render(request, 'table.html', context)

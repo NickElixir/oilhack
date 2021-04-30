@@ -32,7 +32,11 @@
             {% endblock %}
         </div>
         <footer>
-            <p>Web Demo Footer</p>
+            {% block footer %}
+            {% endblock %}
         </footer>
     </body>
+    {% block js %}
+        
+    {% endblock %}
 </html>

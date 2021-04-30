@@ -12,6 +12,12 @@ body {
     color: #fff;
     background-color: #000;
     font-family: sans-serif;
+    font-size: 20px;
+}
+tr:hover{
+    color:#000;
+    background-color: #fff;
+    font-size: 1.2 em;
 }
 td {
     text-align: center;
