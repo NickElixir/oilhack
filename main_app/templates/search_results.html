@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска</title>
+</head>
+<body>
+<div class="container">
+    {% for i in companies_on_search %}
+
+            <a href="/{{ i.id }}/"> {{ i.name }} </a><br>
+
+    {% endfor %}
+    <br>
+    <a href="/">Назад</a>
+</div>
+</body>
+</html>
