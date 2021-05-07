@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
   {% block table %}
     <table> 
@@ -16,7 +17,7 @@
   <button class='download'>
     <a href="{{ fileurl }}">Download</a>
   </button>
+  <img src='{% static 'Testfig.png' %}'/> 
 {% endblock %}
 {% block js %}
- 
 {% endblock %}

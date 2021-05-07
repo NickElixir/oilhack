@@ -6,11 +6,12 @@ from .models import *
 from .forms import *
 from django.contrib.auth.hashers import *
 import re
-
+import pandas as pd
 from django.conf import settings
 from django.conf.urls.static import static
-
 import csv
+import numpy as np
+import matplotlib.pyplot as plt
 
 def index(request):
     context = {}
@@ -80,17 +81,49 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
 
+links_table = pd.read_csv('TGB/propertys/links_table.csv', sep=';')
+word = 'ГПН'
+returnable_df = pd.DataFrame()
+index_comp = links_table.loc[links_table.company_name == word]['id-company'].iloc[0]
+for i in [5, 6]:
+    path = "media/1.csv"
+    tmp = pd.read_csv(path, sep=';')
+    returnable_df = returnable_df.append(tmp)
+
+def get_hist(returnable_df):
+    labels = returnable_df['Наименование компонента'].values
+    x1 = returnable_df['Бюджет'] / returnable_df['Бюджет'].sum()
+    print(x1)
+    x2 = returnable_df['Доля в проекте'] / returnable_df['Доля в проекте'].sum()
+
+    x = np.arange(len(labels))  # the label locations
+    width = 0.35  # the width of the bars
+
+    fig, ax = plt.subplots(figsize=(16, 12))
+    rects1 = ax.bar(x - width / 2, x1, width, label='Бюджет')
+    rects2 = ax.bar(x + width / 2, x2, width, label='Доля в проекте')
+
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+
+    ax.set_ylabel('Scores')
+    ax.set_title('Scores by group and gender')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
+    plt.xticks(rotation=90)
+    fig.tight_layout()
+    fig.savefig('media/Testfig.png')
+
 def parser_of_csv(request, table_id):
+    get_hist(returnable_df)
     context = dict()
-    #filename = '/home/nippon/Downloads/Test-data.csv'
     filename = settings.MEDIA_ROOT + '/'  + str(table_id) + '.csv'
     a = list()
     with open(filename, newline='', encoding='utf-8') as file_csv:
-    #with open(filename) as file_csv:
         file = csv.reader(file_csv)
         for row in file:
             a.append(row[0].split(';'))
-        
+    context['img'] = 'Testfig.png'
     context['csv'] = a
     context['fileurl'] = settings.MEDIA_ROOT + '/' + str(table_id) + '.csv'
     return render(request, 'table.html', context)
