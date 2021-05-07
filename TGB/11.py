@@ -120,7 +120,7 @@ def get_hist(returnable_df):
     ax.legend()
     plt.xticks(rotation=90)
     fig.tight_layout()
-    fig.savefig('Testfig.png')
+    fig.savefig('graph.png')
     plt.show()
 
 

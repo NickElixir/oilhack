@@ -112,7 +112,7 @@ def get_hist(returnable_df):
     ax.legend()
     plt.xticks(rotation=90)
     fig.tight_layout()
-    fig.savefig('static/Testfig.png')
+    fig.savefig('static/graph.png')
 
 def parser_of_csv(request, table_id):
     get_hist(returnable_df)
@@ -123,7 +123,7 @@ def parser_of_csv(request, table_id):
         file = csv.reader(file_csv)
         for row in file:
             a.append(row[0].split(';'))
-    context['img'] = 'Testfig.png'
+    context['img'] = 'graph.png'
     context['csv'] = a
     context['filename'] = str(table_id) + '.csv'
     return render(request, 'table.html', context)

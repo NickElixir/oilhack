@@ -1,6 +1,9 @@
 header, footer {
     text-align: center;
 }
+.content {
+    padding: 1em;
+}
 img, video, canvas {
     width: 90%;
     margin: 5%;
@@ -27,4 +30,11 @@ td {
         width: 80%;
         margin: 0 10%;
     }
+}
+
+#graph-button {
+    padding: 1em;
+    background-color: aqua;
+    max-width: fit-content;
+    border-radius: 0.5em;
 }
