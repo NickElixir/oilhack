@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rg6cp6zp-$zfpstsw19^to7tq@1*oy0@d&+1bz(j$8=_*n9beu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -121,11 +121,14 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 # Static files
+from django.conf import settings
+from django.conf.urls.static import static
+
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # Media files
 MEDIA_URL = '/media/'

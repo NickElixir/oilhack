@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  {% block table %}
     <table> 
       <tbody> 
         {% for i in csv %}
@@ -13,11 +12,13 @@
         {% endfor %}
       </tbody>
     </table>
-  {% endblock %}
-  <button class='download'>
-    <a href="{{ fileurl }}">Download</a>
-  </button>
-  <img src='{% static 'Testfig.png' %}'/> 
+	
+	<img src="{% static 'Testfig.png' %}" />
+	<button class='download'>
+    	<a href="">Download</a>
+  	</button>
+
 {% endblock %}
 {% block js %}
+ 
 {% endblock %}

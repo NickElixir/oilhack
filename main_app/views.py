@@ -112,7 +112,7 @@ def get_hist(returnable_df):
     ax.legend()
     plt.xticks(rotation=90)
     fig.tight_layout()
-    fig.savefig('media/Testfig.png')
+    fig.savefig('static/Testfig.png')
 
 def parser_of_csv(request, table_id):
     get_hist(returnable_df)
@@ -125,7 +125,7 @@ def parser_of_csv(request, table_id):
             a.append(row[0].split(';'))
     context['img'] = 'Testfig.png'
     context['csv'] = a
-    context['fileurl'] = settings.MEDIA_ROOT + '/' + str(table_id) + '.csv'
+    context['filename'] = str(table_id) + '.csv'
     return render(request, 'table.html', context)
 
 @login_required(login_url='/login')
