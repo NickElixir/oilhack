@@ -46,10 +46,22 @@ td {
         margin: 0 10%;
     }
 }
-
-#graph-button {
+button {
     padding: 1em;
-    background-color: aqua;
     max-width: fit-content;
     border-radius: 0.5em;
+    font-size: 1.2em;
+    color: white;
+}
+button a {
+    text-decoration: none;
+}
+#graph-button {
+    background-color: aqua;
+}
+.download {
+    background-color: orangered;
+}
+.download a {
+    color: white;
 }

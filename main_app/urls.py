@@ -10,5 +10,5 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout'),
     path('<int:table_id>/', views.parser_of_csv, name='table'),
     path('search_results/',views.search_results, name='search_results'),
-    #path('test/', views.parser_of_csv, name='table'),
+    path('media/<str:filename>/', views.download_file, name='download_file')
 ]

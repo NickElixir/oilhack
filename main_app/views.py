@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpRequest
+from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.shortcuts import render
 from .models import *
@@ -7,11 +7,16 @@ from .forms import *
 from django.contrib.auth.hashers import *
 import re
 import pandas as pd
+
 from django.conf import settings
 from django.conf.urls.static import static
+
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+
+import mimetypes
+
 
 def index(request):
     context = {}
@@ -124,7 +129,8 @@ def parser_of_csv(request, table_id):
             a.append(row[0].split(';'))
     context['img'] = 'graph.png'
     context['csv'] = a
-    context['filename'] = str(table_id) + '.csv'
+    context['filename'] = '/media/' + str(table_id) + '.csv'
+    print(context['filename'])
     return render(request, 'table.html', context)
 
 @login_required(login_url='/login')
@@ -143,3 +149,13 @@ def search_results(request):
         context['search_value'] = s_line
         context['companies_on_search'] = companies
     return render(request, 'search_results.html', context)
+
+def download_file(request, filename):
+    # fill these variables with real values
+    fl_path = settings.MEDIA_ROOT + '/' + filename
+    print(fl_path)
+    fl = open(fl_path, 'r')
+    mime_type, _ = mimetypes.guess_type(fl_path)
+    response = HttpResponse(fl, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response 
