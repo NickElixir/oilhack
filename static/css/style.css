@@ -25,7 +25,22 @@ tr:hover{
 td {
     text-align: center;
 }
-@media screen and (min-width: 769px) {
+@media only screen and (max-width: 767px) {
+    table {
+        margin: 0 5%;
+    }
+    tr:first {
+        display: hidden;
+    }
+    tr {
+        display: grid;
+        border: white 1px solid;
+    }
+    article {
+        width: 0 5%;
+    }
+}
+@media only screen and (min-width: 769px) {
     article {
         width: 80%;
         margin: 0 10%;

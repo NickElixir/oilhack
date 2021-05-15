@@ -93,7 +93,6 @@ for i in [5, 6]:
 def get_hist(returnable_df):
     labels = returnable_df['Наименование компонента'].values
     x1 = returnable_df['Бюджет'] / returnable_df['Бюджет'].sum()
-    print(x1)
     x2 = returnable_df['Доля в проекте'] / returnable_df['Доля в проекте'].sum()
 
     x = np.arange(len(labels))  # the label locations
@@ -139,7 +138,6 @@ def search_results(request):
             for company in Company.objects.all():
                 if re.search(r'{}'.format(s_line), company.name):
                     companies.append(company)
-                    print(company)
         except:
             companies = Company.objects.filter(name__startswith=s_line)
         context['search_value'] = s_line
