@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Результаты поиска</title>
-</head>
-<body>
-<div class="container">
-    {% for i in companies_on_search %}
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Результаты поиска для "{{ search_value }}":</h2>
+    {% if companies_on_search%}
+        {% for i in companies_on_search %}
 
             <a href="/{{ i.id }}/"> {{ i.name }} </a><br>
 
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>Ничего не найдено</p>
+    {% endif %}
     <br>
-    <a href="/">Назад</a>
-</div>
-</body>
-</html>
+    <button><a href="/">Назад</a></button>
+{% endblock %}

@@ -3,37 +3,44 @@
 {% load static %}
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <link rel="icon" href="{% static 'favicon.png' %}" type="image/x-icon">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="{% static 'js/index.js' %}"></script>
         {% if title %}
-        <title>{{ title }}</title>
-        {% else %}
-        <title></title>
+            <title>{{ title }}</title>
         {% endif %}
     </head>
     <body>
         <header>
-            {% if title %}
-            <h1><a href="/">{{ title }}</a></h1>
-            {% endif %}
-            {% if author %}
-            <h4>Author: {{ author.username }}</h4>
-            {% endif %}
-            {% if menu %}
             <ul class="menu">
                 {% for anchor in menu %}
-                <li><a href="{{ anchor.link }}">{{ anchor.label }}</a></li>
+                    <li><a href="{{ anchor.link }}">{{ anchor.label }}</a></li>
                 {% endfor %}
-            </ul>    
-            {% endif %}    
-            </ul>
+                <form method="get" action="/search_results/">
+                <button name="search-btn" type="submit" style="display:inline-block;padding: 0px; margin: 0px; align:top;
+                                        color: red; background-color: Transparent; background-repeat:no-repeat; border: none; overflow: hidden;width:30px ">
+                    <img style="filter:brightness(0%);width:20px;margin:0;vertical-align:bottom;" src="{% static 'search-icon.png' %}">
+                </button>
+                <input class="form-control" type="text" name="search-line" placeholder="Поиск" value="" aria-label="Search" style="display: inline-block;">
+                </form>
+            </ul>      
         </header>
+        <article>
+        {% if title and not h1 %}
+            <h1>{{ title }}</h1>
+        {% endif %}
+        {% if author %}
+            <h4>Author: {{ author.username }}</h4>
+        {% endif %}
+
         <div class="content">
             {% block content %}
             {% endblock %}
         </div>
+        </article>
+
         <footer>
             {% block footer %}
             {% endblock %}

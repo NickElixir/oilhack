@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная</title>
-</head>
-<body>
- <a href="/login">Войти</a>
- <a href="/reg">Зарегистрироваться</a>
-  {% load static %}
- <form method="get" action="/search_results/">
- <button name="search-btn" type="submit" style="display:inline-block;padding: 0px; margin: 0px; align:top;
-                          color: red; background-color: Transparent; background-repeat:no-repeat; border: none; overflow: hidden;width:30px ">
-     <img style="filter:brightness(0%);width:20px;margin:0;vertical-align:bottom;" src="{% static 'search-icon.png' %}">
- </button>
- <input class="form-control" type="text" name="search-line" placeholder="Поиск" value="" aria-label="Search" style="display: inline-block; width: calc(100% - 60px);align:right">
- </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{%block content %}
+    <ul>
+    {% for table_id in tables %}
+        <li><a href="{{ MEDIA_URL }} {{ table_id }}">{{ table_id }}.csv</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

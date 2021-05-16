@@ -16,15 +16,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import mimetypes
+from django.core.files.storage import FileSystemStorage
+from os import listdir
 
-
+from config import Config
+menu = Config.MENU
 def index(request):
-    context = {}
+    files = listdir('media')
+    tables = list(filter(lambda x: x.endswith('.csv'), files))
+
+    context = {
+        'title': 'Главная',
+        'menu': menu,
+        'tables': sorted([table[:-4] for table in tables])
+    }
 
     return render(request, 'index.html', context)
 
 def register(request):
-    context = dict()
+    context = {
+        'title': menu[0],
+        'menu': menu
+    }
+
 
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -59,7 +73,11 @@ def login_user(request):
         :return: request answer object, contains *HTML* file
         :rtype: :class: `django.http.HttpResponse`
     """
-    context = dict()
+    context = {
+        'title': 'Вход',
+        'menu': menu
+    }
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -118,11 +136,18 @@ def get_hist(returnable_df):
     fig.tight_layout()
     fig.savefig('static/graph.png')
 
+#@login_required(login_url='/login')
 def parser_of_csv(request, table_id):
     get_hist(returnable_df)
-    context = dict()
+
+    context = {
+        'title': 'Таблица ' + str(table_id),
+        'menu': menu
+    }
+
     filename = settings.MEDIA_ROOT + '/'  + str(table_id) + '.csv'
     a = list()
+
     with open(filename, newline='', encoding='utf-8') as file_csv:
         file = csv.reader(file_csv)
         for row in file:
@@ -135,8 +160,12 @@ def parser_of_csv(request, table_id):
 
 @login_required(login_url='/login')
 def search_results(request):
-    context = {}
-    context['user_name'] = request.user
+    context = {
+        'title': 'Поиск',
+        'menu': menu,
+        'user_name': request.user
+    }
+
     if 'search-btn' and 'search-line' in request.GET:
         s_line = request.GET['search-line']
         try:
@@ -158,4 +187,20 @@ def download_file(request, filename):
     mime_type, _ = mimetypes.guess_type(fl_path)
     response = HttpResponse(fl, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename
-    return response 
+    return response
+
+#@login_required(login_url='/login')
+def upload_file(request):
+    context = {
+        'title': 'Загрузка',
+        'menu': menu
+    }
+
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        context['uploaded_file_url'] = uploaded_file_url
+        return render(request, 'upload_file.html', context)
+    return render(request, 'upload_file.html', context)

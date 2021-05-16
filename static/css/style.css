@@ -46,18 +46,40 @@ td {
         margin: 0 10%;
     }
 }
-button {
-    padding: 1em;
-    max-width: fit-content;
+input, button {
+    margin: 0.5em;
     border-radius: 0.5em;
-    font-size: 1.2em;
+    padding: 0.5em;
+    font-size: 1em;
+}
+button {
+    max-width: fit-content;
     color: white;
 }
 button a {
     text-decoration: none;
 }
+header ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+header ul li {
+    display: inline-block;
+    border-radius: 0.5em;
+    padding: 1em;
+    background-color: aqua;
+    margin: 0.1em 0;
+}
+header ul li a {
+    color: white;
+    text-decoration: none;
+}
 #graph-button {
     background-color: aqua;
+}
+#upload {
+    background-color: greenyellow;
 }
 .download {
     background-color: orangered;

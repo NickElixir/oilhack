@@ -1,3 +1,4 @@
+<!-- templates/table.html -->
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -14,11 +15,8 @@
     </table>
 	<button id="graph-button" onclick="changeGraph()">График</button>
   <button class='download'>
-    	<a href="{% static filename %}">Download</a>
+    	<a href="{{MEDIA_URL}} {{filename}}">Download</a>
   </button>
   <img id="graph" src="{% static img %} " hidden />
 
-{% endblock %}
-{% block js %}
- 
 {% endblock %}
